@@ -4,6 +4,7 @@
 #include "simpleBLEPeripheral.h"
 
 #define MIN_DELAY_MS 500  //定义最小延时，单位ms
+#define TASK_MIN_DELAY_MS 1000
 
 typedef struct
 {
@@ -197,9 +198,9 @@ void switch_colour(void)
   set_luminance(1);
   u8UpOrDownFlag_G = 0;  //增加
   set_colour();
-  osal_start_timerEx(GetSimpleBLEPeripheral_TaskID(), SBP_SET_START_T3_EVT, pColourNow->u32DelayTimes - MIN_DELAY_MS);
+  osal_start_timerEx(GetSimpleBLEPeripheral_TaskID(), SBP_SET_START_T3_EVT, pColourNow->u32DelayTimes - TASK_MIN_DELAY_MS);
   osal_start_timerEx(GetSimpleBLEPeripheral_TaskID(), SBP_SET_PWM_EVT, pColourNow->u32DelayTimes);
-  osal_start_timerEx(GetSimpleBLEPeripheral_TaskID(), SBP_SET_STOP_T3_EVT, pColourNow->u32DelayTimes + MIN_DELAY_MS);
+  osal_start_timerEx(GetSimpleBLEPeripheral_TaskID(), SBP_SET_STOP_T3_EVT, pColourNow->u32DelayTimes + TASK_MIN_DELAY_MS);
   
   u8ColourTabIndex++;
   u8ColourTabIndex %= u8ColourNum_S;
